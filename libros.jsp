@@ -36,13 +36,14 @@ Connection conexion = getConnection(path);
  <tr>
      <td>
      <label for="isbn">isbn</label>
-     <input type="text" name="isbn" value="<%=(isbnLibroActualizar!=null)?isbnLibroActualizar:""%>" <%=(actualizarLibro!=null)?"readonly":""%> size="40"/>
+     <input type="text" id="isbn" name="isbn" value="<%=(isbnLibroActualizar!=null)?isbnLibroActualizar:""%>" <%=(actualizarLibro!=null)?"readonly":""%> size="40"/>
+     <p id="alerta"></p>
      </td>
   </tr>
  <tr>
  <td>
  <label for="titulo">Titulo</label>
- <input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50"/>
+ <input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50" id="titulo"/>
  </td>
  </tr>
  <tr>
@@ -58,7 +59,7 @@ Connection conexion = getConnection(path);
     <tr>
     <td>
     <div class="btn-enviar">
-    <input type="SUBMIT" value="ACEPTAR"/>
+    <input type="SUBMIT" value="ACEPTAR" id="btn-libro"/>
  </div>
 </td>
  </tr>
@@ -172,8 +173,8 @@ String tituloFiltro= request.getParameter("tituloFiltro");
          out.println("<td>"+isbn+"</td>");
          out.println("<td>"+titulo+"</td>");
             out.println("<td>");
-            out.println("<a class='enlace' href= "+url_completo_eliminar+"Eliminar"+" style= display:block; >"+"Eliminar"+"</a>");
-            out.println("<a class='enlace' href= "+url_completo_actualizar+"Actualizar"+">"+"Actualizar"+"</a>");
+            out.println("<a class='enlace' href="+url_completo_eliminar+">"+"Eliminar"+"</a>");
+            out.println("<a class='enlace' href= "+url_completo_actualizar+">"+"Actualizar"+"</a>");
             out.println("</td>");
          out.println("</tr>");
          i++;
@@ -209,6 +210,7 @@ String tituloFiltro= request.getParameter("tituloFiltro");
 
 %>
 </div>
+<script src="./static/js/validacion.js"></script>
  </body>
 
  </html>

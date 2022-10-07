@@ -17,6 +17,12 @@ h1{
     color:   white;
 }
 
+p{
+    display: none;
+    color:w white;
+    font-size: 2em;
+}
+
 .formulario_libro{
     width: 50%;
     margin: 0 auto;
@@ -87,7 +93,6 @@ table tr td input[type=text]:hover{
     background-color:  #ba8976 ;
     border: 1px solid #eac8b3;
     color: #3d3d50;
-    font-size: 1.5em;
 }
 
 .form-busqueda{

@@ -26,7 +26,7 @@ ls_query += "'" + ls_titulo + "')";
 }
  
 if (ls_action.equals("Eliminar")) {
-ls_query = " delete from libros where isbn = ";
+ls_query = "delete from libros where isbn = ";
 ls_query += "'" + ls_isbn + "'";
 }
  
@@ -71,7 +71,7 @@ html>
 <head><title>Updating a Database</title></head>
 <body>
  
-La siguiente instrucci�n fue ejecutada:
+La siguiente instrucción fue ejecutada:
 <br/><br/>
 <%=ls_query%>
 <br/><br/>
