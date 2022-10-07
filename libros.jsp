@@ -2,6 +2,7 @@
  <html>
  <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link href="./static/css/main.css" rel="stylesheet">
  <title>Actualizar, Eliminar, Crear registros.</title>
  </head>
  <body>
@@ -28,22 +29,37 @@ Connection conexion = getConnection(path);
        }
     }
 %>
-
 <H1>MANTENIMIENTO DE LIBROS</H1>
+<div class="formulario_libro">
 <form action="matto.jsp" method="post" name="Actualizar">
  <table>
  <tr>
-     <td>ISBN<input type="text" name="isbn" value="<%=(isbnLibroActualizar!=null)?isbnLibroActualizar:""%>" readonly="<%=(actualizarLibro!=null)?"true":"false"%>" size="40"/>
-</td>
+     <td>
+     <label for="isbn">isbn</label>
+     <input type="text" name="isbn" value="<%=(isbnLibroActualizar!=null)?isbnLibroActualizar:""%>" <%=(actualizarLibro!=null)?"readonly":""%> size="40"/>
+     </td>
   </tr>
  <tr>
- <td>Tï¿½tulo<input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50"/></td>
+ <td>
+ <label for="titulo">Titulo</label>
+ <input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50"/>
+ </td>
  </tr>
- <tr><td> Action <input type="radio" name="Action" value="Actualizar" <%=(actualizarLibro!=null)?"checked":""%> /> Actualizar
- <input type="radio" name="Action" value="Eliminar" /> Eliminar
- <input type="radio" name="Action" value="Crear" <%=(actualizarLibro==null)?"checked":""%>/> Crear
-  </td>
- <td><input type="SUBMIT" value="ACEPTAR" />
+ <tr>
+ <td>
+ <div class="radios-opcion">
+        <input type="radio" name="Action" value="Actualizar" <%=(actualizarLibro!=null)?"checked":""%> /> 
+        Actualizar
+        <input type="radio" name="Action" value="Eliminar" /> Eliminar
+        <input type="radio" name="Action" value="Crear" <%=(actualizarLibro==null)?"checked":""%>/> Crear
+    </div>
+</td>
+</tr>
+    <tr>
+    <td>
+    <div class="btn-enviar">
+    <input type="SUBMIT" value="ACEPTAR"/>
+ </div>
 </td>
  </tr>
  </form>
@@ -122,28 +138,28 @@ String titulo;
 String isbn;
 String tituloFiltro= request.getParameter("tituloFiltro");
    if (!conexion.isClosed()){
-   out.write("OK");
- 
+
       Statement st = conexion.createStatement();
-      //selección del tipo de consulta para el orden de la tabla
+      //selecciï¿½n del tipo de consulta para el orden de la tabla
       ResultSet rs= getUserQuery(st,tableOrder);
       if(rs==null){
             out.println("NO se obtuvo nada con la consulta");
         }
         else {
         
-      //formulario buscar por isbn
+      //formulario buscar por titulo
       %>
       
-        <form name="formbusca" action="libros.jsp" method="post">
-            Titulo a buscar: <input type=text name="tituloFiltro" placeholder="ingrese un titulo o parte de el" un título?> 
+        <form name="formbusca" action="libros.jsp" method="post" class="form-busqueda">
+            <lable for="tituloFiltro">Titulo</label>
+            <input type=text name="tituloFiltro" placeholder="ingrese un titulo o parte de el"> 
             <input type=submit name=buscar value=BUSCAR>
         </form>
 
       <%
       // Ponemos los resultados en un table de html
       if(tituloFiltro==null){
-                out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a> </td><td>Acciï¿½n</td></tr>");
+                out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a> </td><td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -156,8 +172,8 @@ String tituloFiltro= request.getParameter("tituloFiltro");
          out.println("<td>"+isbn+"</td>");
          out.println("<td>"+titulo+"</td>");
             out.println("<td>");
-            out.println("<a href= "+url_completo_eliminar+"Eliminar"+" style= display:block; >"+"Eliminar"+"</a>");
-            out.println("<a href= "+url_completo_actualizar+"Actualizar"+">"+"Actualizar"+"</a>");
+            out.println("<a class='enlace' href= "+url_completo_eliminar+"Eliminar"+" style= display:block; >"+"Eliminar"+"</a>");
+            out.println("<a class='enlace' href= "+url_completo_actualizar+"Actualizar"+">"+"Actualizar"+"</a>");
             out.println("</td>");
          out.println("</tr>");
          i++;
@@ -192,4 +208,7 @@ String tituloFiltro= request.getParameter("tituloFiltro");
 }
 
 %>
+</div>
  </body>
+
+ </html>

@@ -1,0 +1,138 @@
+*{
+    margin:0px;
+    padding: 0px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #7c92b4 ;
+}
+
+body{
+    background-image: url("../img/libreria.jpg");
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+h1{
+    text-align: center;
+    color:   white;
+}
+
+.formulario_libro{
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 2%;
+    background-color:  #3d3d50;
+    opacity: 0.8;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.formulario_libro table{
+    width: 100%;
+}
+
+.form-input{
+ margin-left: 1%;
+}
+
+
+table tr td input[type=text]{
+    display: block;
+    width: 90%;
+    padding: 10px;
+    margin-left: 2%;
+    color:  #655d6a;
+    outline: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+
+table tr td input[type=text]:focus{
+    font-size: 1.5em;
+    color:   #3d3d50 ;
+    background-color:  #ba8976 ;
+    box-shadow:  #3d3d50 0px 0px 10px ;
+}
+
+table tr td input[type=text]:hover{
+    outline: 1px  white;
+    box-shadow: 0 0 3px 3px #eac8b3 ;    
+}
+
+.radios-opcion{
+    text-align: center;
+    margin: 2%;
+}
+
+.radios-opcion input[type=radio]{
+    cursor: pointer;
+}
+
+.btn-enviar{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.btn-enviar input[type=submit]{
+    display: block;
+    width: 50%;
+    padding: 2%;
+    margin-left: 25%;
+    cursor: pointer;
+}
+
+.btn-enviar input[type=submit]:hover{
+    background-color:  #ba8976 ;
+    border: 1px solid #eac8b3;
+    color: #3d3d50;
+    font-size: 1.5em;
+}
+
+.form-busqueda{
+    padding: 2%;
+}
+
+.form-busqueda input[type="text"]{
+    display: inline-block;
+    width: 50%;
+    padding: 1%;
+    outline: none;
+}
+
+.form-busqueda input[type="text"]:hover{
+    outline: 1px  white;
+    box-shadow: 0 0 3px 3px #eac8b3 ;    
+}
+
+
+.form-busqueda input[type="submit"]{
+    display: inline-block;
+    width: 20%;
+    padding: 1%;
+    cursor: pointer;
+}
+
+.form-busqueda input[type="submit"]:hover{
+    background-color:  #ba8976 ;
+    color: #3d3d50;
+    border: none;
+    outline: none;
+}
+
+.enlace{
+    text-decoration: none;
+    display: block;
+}
+
+.enlace:hover{
+    color: #3d3d50 ;
+    background-color: #ba8976;
+}
+
+@media only screen and (max-width:845px) {
+    .formulario_libro{
+        width: 75%;
+    }
+}
