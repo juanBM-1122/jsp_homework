@@ -26,8 +26,8 @@ ls_query = " insert into libros (isbn, titulo, editorial, anio, autor)";
 ls_query += " values (";
 ls_query += "'" + ls_isbn + "',";
 ls_query += "'" + ls_titulo + "',";
-ls_query += "'" + ls_editorial + "')";
-ls_query += "'" + ls_anio + "')";
+ls_query += "'" + ls_editorial + "',";
+ls_query += "'" + ls_anio + "',";
 ls_query += "'" + ls_autor + "')";
 }
  
