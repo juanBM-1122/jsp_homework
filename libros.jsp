@@ -14,6 +14,7 @@ String path = context.getRealPath("/data");
 
 String tituloLibroActualizar="";
 String isbnLibroActualizar="";
+String autorLibroActualizar="";
 String editorLibroActualizar="";
 String anioLibroActualizar="";
 
@@ -28,8 +29,9 @@ Connection conexion = getConnection(path);
         while(rsLibro.next()){
            tituloLibroActualizar= rsLibro.getString("titulo");
            isbnLibroActualizar = rsLibro.getString("isbn");
-           editorLibroActualizar = rsLibro.getString("editorial");
+            editorLibroActualizar = rsLibro.getString("editorial");
            anioLibroActualizar = rsLibro.getString("anio");
+           autorLibroActualizar = rsLibro.getString("autor");
        }
     }
 %>
@@ -50,7 +52,13 @@ Connection conexion = getConnection(path);
         <input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50" id="titulo"/>
     </td>
  </tr>
-
+    <td>
+        <td>
+        <label for="autor">Autor</label>
+        <input type="text" name="autor" value="<%=(autorLibroActualizar!=null)?autorLibroActualizar:""%>" size="50" id="autor"/>
+        </td>
+    </tr>
+ 
   <tr>
     <td>
         <label for="ediorial">Editorial</label>
@@ -159,6 +167,7 @@ String titulo;
 String isbn;
 String editorial;
 String anio;
+String autor;
 String tituloFiltro= request.getParameter("tituloFiltro");
    if (!conexion.isClosed()){
 
@@ -182,7 +191,7 @@ String tituloFiltro= request.getParameter("tituloFiltro");
       <%
       // Ponemos los resultados en un table de html
       if(tituloFiltro==null){
-                out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a>  <td>editorial</td>   <td>anio</td>   </td><td>Accion</td></tr>");
+                out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a>  <td>Autor</td>  <td>editorial</td>   <td>anio</td>   </td><td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
@@ -190,6 +199,7 @@ String tituloFiltro= request.getParameter("tituloFiltro");
         titulo=rs.getString("titulo");
         editorial = rs.getString("editorial");
         anio = rs.getString("anio");
+        autor=rs.getString("autor");
         url_completo_eliminar="matto.jsp?isbn="+isbn+"&Action="+"Eliminar";
         url_completo_actualizar="libros.jsp?isbn="+isbn+"&Action="+"Actualizar";
         out.println("<tr>");
@@ -214,19 +224,21 @@ String tituloFiltro= request.getParameter("tituloFiltro");
             rs=getTitleFilter(conexion,tituloFiltro);
             if(rs!=null){
             out.println("<table border=\"1\">");
-            out.println("<tr><td>Num.</td><td>ISBN</td><td>Titulo</td>td>editorial</td>td>anio</td></tr>");
+            out.println("<tr><td>Num.</td><td>ISBN</td><td>Titulo</td><td>Autor</td><td>editorial</td><td>anio</td></tr>");
             int i=1;
             while(rs.next()){
                 isbn=rs.getString("isbn");
                 titulo= rs.getString("titulo");
                 editorial = rs.getString("editorial");
                 anio = rs.getString("anio");
+                autor=rs.getString("autor");
                 out.println("<tr>");
                 out.println("<td>"+i+"</td>");
                 out.println("<td>"+isbn+"</td>");
                 out.println("<td>"+titulo+"</td>");
                 out.println("<td>"+editorial+"</td>");
                 out.println("<td>"+anio+"</td>");
+                out.println("<td>"+autor+"</td>");
                 out.println("</tr>");
                 i++;
               }             
