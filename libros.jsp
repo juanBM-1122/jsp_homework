@@ -206,6 +206,7 @@ String tituloFiltro= request.getParameter("tituloFiltro");
         out.println("<td>"+ i +"</td>");
         out.println("<td>"+isbn+"</td>");
         out.println("<td>"+titulo+"</td>");
+        out.println("<td>"+autor+"</td>");
         out.println("<td>"+editorial+"</td>");
         out.println("<td>"+anio+"</td>");
         out.println("<td>");
@@ -236,9 +237,9 @@ String tituloFiltro= request.getParameter("tituloFiltro");
                 out.println("<td>"+i+"</td>");
                 out.println("<td>"+isbn+"</td>");
                 out.println("<td>"+titulo+"</td>");
+                out.println("<td>"+autor+"</td>");
                 out.println("<td>"+editorial+"</td>");
                 out.println("<td>"+anio+"</td>");
-                out.println("<td>"+autor+"</td>");
                 out.println("</tr>");
                 i++;
               }             
