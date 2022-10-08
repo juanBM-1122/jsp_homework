@@ -53,15 +53,36 @@ Connection conexion = getConnection(path);
     </td>
  </tr>
     <td>
-        <td>
         <label for="autor">Autor</label>
         <input type="text" name="autor" value="<%=(autorLibroActualizar!=null)?autorLibroActualizar:""%>" size="50" id="autor"/>
-        </td>
-    </tr>
+    </td>
  
   <tr>
     <td>
-        <label for="ediorial">Editorial</label>
+        <label for="editorial">Editorial</label>
+
+
+    ResultSet sentencia = null;
+    <%
+        if (!conexion.isClosed()){
+      // La consulta
+        java.sql.PreparedStatement ps= conexion.prepareStatement("select * from editorial");
+        //ps.setString(1,request.getParameter("nomEditorial"));
+        rsLibro= ps.executeQuery();
+        out.println("<select name='select'>");
+        out.println("<option>........</option>");
+
+      // continuamos con el select
+      while (rsLibro.next())
+      {
+         String editor1 = rsLibro.getString("nomEditorial");//guardamos un campo de resultado en una variable
+         out.println("<option value='"+editor1+"'</option>");//imprimimos el contenido del select 
+      }
+
+       out.println("</select>");
+        %>
+
+
         <input type="text" name="editorial" value="<%=(editorLibroActualizar!=null)?editorLibroActualizar:""%>" size="2" id="editorial"/>
     </td>
  </tr>
@@ -251,9 +272,6 @@ String tituloFiltro= request.getParameter("tituloFiltro");
     }
 }
 %>
-
-    if()
-
 
 </div>
 <script src="./static/js/validacion.js"></script>
