@@ -38,10 +38,10 @@ ls_query += "'" + ls_isbn + "'";
  
 if (ls_action.equals("Actualizar")) {
 ls_query = " update libros";
-ls_query += " set titulo= " + "'" + ls_titulo + "'";
-ls_query += " set editorial= " + "'" + ls_editorial + "'";
-ls_query += " set anio= " + "'" + ls_anio + "'";
-ls_query += " set autor= " + "'" + ls_autor + "'";
+ls_query += " set titulo= " + "'" + ls_titulo + "',";
+ls_query += " editorial= " + "'" + ls_editorial + "',";
+ls_query += " anio= " + "'" + ls_anio + "',";
+ls_query += " autor= " + "'" + ls_autor + "'";
 ls_query += " where isbn = " + "'" + ls_isbn + "'";
 }
  

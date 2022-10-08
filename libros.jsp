@@ -60,7 +60,7 @@ Connection conexion = getConnection(path);
   <tr>
     <td>
         <label for="editorial">Editorial</label>
-        <input type="text" name="editorial" value="<%=(editorLibroActualizar!=null)?editorLibroActualizar:""%>" size="2" id="editorial"/>
+        <input type="text" name="editorial" value="<%=(editorLibroActualizar!=null)?editorLibroActualizar:""%>" size="10" id="editorial"/>
     </td>
  </tr>
 
