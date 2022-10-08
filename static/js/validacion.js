@@ -7,6 +7,9 @@ let alerta= document.getElementById("alerta");
 let titulo= document.getElementById("titulo");
 let regExpresion_2= new RegExp(prueba);
 
+let formbusca = document.querySelector("#form");
+let btn = document.querySelector("#btn")
+
 /*
 isbnElement.addEventListener('change',()=>{
   if(regExpresion.test(document.getElementById('isbn').value)==true){
@@ -30,3 +33,23 @@ titulo.addEventListener(
     }
   }
 );
+
+function validarBuscar(){
+
+  let deshabilitar = false;
+
+  if (formbuscar.titulo.value == "" && formbuscar.autor.value == ""){
+
+      deshabilitar = true;
+  }
+
+  if (deshabilitar== true){
+
+    formbuscar.btn.disabled = true;
+  }else {
+    formbuscar.btn.disabled = false;
+  }
+
+}
+
+formbuscar.addEventListener("keyup",validarBuscar)
