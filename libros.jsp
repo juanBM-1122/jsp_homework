@@ -14,6 +14,8 @@ String path = context.getRealPath("/data");
 
 String tituloLibroActualizar="";
 String isbnLibroActualizar="";
+String editorLibroActualizar="";
+String anioLibroActualizar="";
 
 ResultSet rsLibro=null;
 Connection conexion = getConnection(path);
@@ -26,6 +28,8 @@ Connection conexion = getConnection(path);
         while(rsLibro.next()){
            tituloLibroActualizar= rsLibro.getString("titulo");
            isbnLibroActualizar = rsLibro.getString("isbn");
+           editorLibroActualizar = rsLibro.getString("editorial");
+           anioLibroActualizar = rsLibro.getString("anio");
        }
     }
 %>
@@ -35,26 +39,41 @@ Connection conexion = getConnection(path);
  <table>
  <tr>
      <td>
-     <label for="isbn">isbn</label>
-     <input type="text" id="isbn" name="isbn" value="<%=(isbnLibroActualizar!=null)?isbnLibroActualizar:""%>" <%=(actualizarLibro!=null)?"readonly":""%> size="40"/>
-     <p id="alerta"></p>
+        <label for="isbn">isbn</label>
+        <input type="text" id="isbn" name="isbn" value="<%=(isbnLibroActualizar!=null)?isbnLibroActualizar:""%>" <%=(actualizarLibro!=null)?"readonly":""%> size="40"/>
+        <p id="alerta"></p>
      </td>
   </tr>
  <tr>
- <td>
- <label for="titulo">Titulo</label>
- <input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50" id="titulo"/>
- </td>
+    <td>
+        <label for="titulo">Titulo</label>
+        <input type="text" name="titulo" value="<%=(tituloLibroActualizar!=null)?tituloLibroActualizar:""%>" size="50" id="titulo"/>
+    </td>
  </tr>
+
+  <tr>
+    <td>
+        <label for="ediorial">Editorial</label>
+        <input type="text" name="editorial" value="<%=(editorLibroActualizar!=null)?editorLibroActualizar:""%>" size="2" id="editorial"/>
+    </td>
+ </tr>
+
+<tr>
+    <td>
+        <label for="anio">Anio de Publicacion</label>
+        <input type="text" name="anio" value="<%=(anioLibroActualizar!=null)?anioLibroActualizar:""%>" size="4" id="anio"/>
+    </td>
+ </tr>
+
  <tr>
- <td>
- <div class="radios-opcion">
-        <input type="radio" name="Action" value="Actualizar" <%=(actualizarLibro!=null)?"checked":""%> /> 
+    <td>
+    <div class="radios-opcion">
+        <input type="radio" name="Action" value="Actualizar" <%=(actualizarLibro!=null)?"checked":""%>/> 
         Actualizar
         <input type="radio" name="Action" value="Eliminar" /> Eliminar
         <input type="radio" name="Action" value="Crear" <%=(actualizarLibro==null)?"checked":""%>/> Crear
-    </div>
-</td>
+        </div>
+    </td>
 </tr>
     <tr>
     <td>
@@ -69,22 +88,23 @@ Connection conexion = getConnection(path);
  </form>
 <br><br>
 <%!
+
 public Connection getConnection(String path) throws SQLException {
-String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
-String filePath= path+"\\datos.mdb";
-String userName="",password="";
-String fullConnectionString = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + filePath;
+    String driver = "sun.jdbc.odbc.JdbcOdbcDriver";
+    String filePath= path+"\\datos.mdb";
+    String userName="",password="";
+    String fullConnectionString = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=" + filePath;
 
-    Connection conn = null;
-try{
-        Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
- conn = DriverManager.getConnection(fullConnectionString,userName,password);
+        Connection conn = null;
+    try{
+            Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+    conn = DriverManager.getConnection(fullConnectionString,userName,password);
 
-}
- catch (Exception e) {
-System.out.println("Error: " + e);
- }
-    return conn;
+    }
+    catch (Exception e) {
+    System.out.println("Error: " + e);
+    }
+        return conn;
 }
 
 //metodo para obtenere los libros de manara ascendente o de manera descendente
@@ -137,6 +157,8 @@ String url_completo_actualizar="";
 //datos de los libros
 String titulo;
 String isbn;
+String editorial;
+String anio;
 String tituloFiltro= request.getParameter("tituloFiltro");
    if (!conexion.isClosed()){
 
@@ -152,7 +174,7 @@ String tituloFiltro= request.getParameter("tituloFiltro");
       %>
       
         <form name="formbusca" action="libros.jsp" method="post" class="form-busqueda">
-            <lable for="tituloFiltro">Titulo</label>
+            <label for="tituloFiltro">Titulo</label>
             <input type=text name="tituloFiltro" placeholder="ingrese un titulo o parte de el"> 
             <input type=submit name=buscar value=BUSCAR>
         </form>
@@ -160,22 +182,26 @@ String tituloFiltro= request.getParameter("tituloFiltro");
       <%
       // Ponemos los resultados en un table de html
       if(tituloFiltro==null){
-                out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a> </td><td>Accion</td></tr>");
+                out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a>  <td>editorial</td>   <td>anio</td>   </td><td>Accion</td></tr>");
       int i=1;
       while (rs.next())
       {
-         isbn= rs.getString("isbn");
-         titulo=rs.getString("titulo");
-         url_completo_eliminar="matto.jsp?isbn="+isbn+"&Action="+"Eliminar";
-         url_completo_actualizar="libros.jsp?isbn="+isbn+"&Action="+"Actualizar";
-         out.println("<tr>");
-         out.println("<td>"+ i +"</td>");
-         out.println("<td>"+isbn+"</td>");
-         out.println("<td>"+titulo+"</td>");
-            out.println("<td>");
-            out.println("<a class='enlace' href="+url_completo_eliminar+">"+"Eliminar"+"</a>");
-            out.println("<a class='enlace' href= "+url_completo_actualizar+">"+"Actualizar"+"</a>");
-            out.println("</td>");
+        isbn= rs.getString("isbn");
+        titulo=rs.getString("titulo");
+        editorial = rs.getString("editorial");
+        anio = rs.getString("anio");
+        url_completo_eliminar="matto.jsp?isbn="+isbn+"&Action="+"Eliminar";
+        url_completo_actualizar="libros.jsp?isbn="+isbn+"&Action="+"Actualizar";
+        out.println("<tr>");
+        out.println("<td>"+ i +"</td>");
+        out.println("<td>"+isbn+"</td>");
+        out.println("<td>"+titulo+"</td>");
+        out.println("<td>"+editorial+"</td>");
+        out.println("<td>"+anio+"</td>");
+        out.println("<td>");
+        out.println("<a class='enlace' href="+url_completo_eliminar+">"+"Eliminar"+"</a>");
+        out.println("<a class='enlace' href= "+url_completo_actualizar+">"+"Actualizar"+"</a>");
+        out.println("</td>");
          out.println("</tr>");
          i++;
       }
@@ -188,15 +214,19 @@ String tituloFiltro= request.getParameter("tituloFiltro");
             rs=getTitleFilter(conexion,tituloFiltro);
             if(rs!=null){
             out.println("<table border=\"1\">");
-            out.println("<tr><td>Num.</td><td>ISBN</td><td>Titulo</td></tr>");
+            out.println("<tr><td>Num.</td><td>ISBN</td><td>Titulo</td>td>editorial</td>td>anio</td></tr>");
             int i=1;
             while(rs.next()){
                 isbn=rs.getString("isbn");
                 titulo= rs.getString("titulo");
+                editorial = rs.getString("editorial");
+                anio = rs.getString("anio");
                 out.println("<tr>");
                 out.println("<td>"+i+"</td>");
                 out.println("<td>"+isbn+"</td>");
                 out.println("<td>"+titulo+"</td>");
+                out.println("<td>"+editorial+"</td>");
+                out.println("<td>"+anio+"</td>");
                 out.println("</tr>");
                 i++;
               }             
@@ -207,8 +237,11 @@ String tituloFiltro= request.getParameter("tituloFiltro");
           conexion.close();
     }
 }
-
 %>
+
+    if()
+
+
 </div>
 <script src="./static/js/validacion.js"></script>
  </body>
