@@ -153,8 +153,8 @@ public ResultSet getTitleFilter(Connection c, String tituloFiltro) throws SQLExc
 
 <%
 //ServletContext context= request.getServletContext();
-//String path = context.getRealPath("/data");
-//Connection conexion = getConnection(path);
+//String path = context.getRealPath("/data");aaaa
+//Connection conexion = getConnection(path);aaaa
 
 String tableOrder= request.getParameter("orden");
 //obtener la direccion de matto para poder crear la url para el enlace de eliminar
