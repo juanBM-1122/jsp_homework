@@ -182,7 +182,6 @@ String editorial;
 String anio;
 String autor;
 String tituloFiltro= request.getParameter("tituloFiltro");
-String autorFiltro = request.getParameter("autorFiltro");
    if (!conexion.isClosed()){
 
       Statement st = conexion.createStatement();
@@ -198,13 +197,11 @@ String autorFiltro = request.getParameter("autorFiltro");
         <form id = "formbuscar" name="formbusca" action="libros.jsp" method="post" class="form-busqueda">
             <label for="tituloFiltro">Titulo</label>
             <input type=text id="titulo" name="tituloFiltro" placeholder="ingrese un titulo o parte de el">
-            <br><label for="autorFiltro">Autor</label>
-            <input type=text id="autor" name="autorFiltro" placeholder="ingrese el autor">  
             <input type=submit disabled id="btn" class="btn" name=buscar value=BUSCAR>
 
       <%
       // Ponemos los resultados en un table de html
-      if(tituloFiltro==null && autorFiltro==null){
+      if(tituloFiltro==null){
                 out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a>  <td>Autor</td>  <td>editorial</td>   <td>anio</td>   </td><td>Accion</td></tr>");
       int i=1;
       while (rs.next())
