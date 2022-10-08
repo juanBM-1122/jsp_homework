@@ -148,6 +148,21 @@ public ResultSet getTitleFilter(Connection c, String tituloFiltro) throws SQLExc
     return rs;
 }
 
+public ResultSet getAutorFilter(Connection c, String autorFiltro) throws SQLException{
+    String consulta="Select * from libros where autor like ?";
+    ResultSet rs= null;
+    java.sql.PreparedStatement ps= c.prepareStatement(consulta);
+    ps.setString(1,autorFiltro);
+    System.out.println(ps);
+    try{
+        rs= ps.executeQuery();
+    }
+    catch(Exception e){
+        System.out.println("Error: "+ e);
+    }
+    return rs;
+}
+
 %>
 
 
@@ -167,6 +182,7 @@ String editorial;
 String anio;
 String autor;
 String tituloFiltro= request.getParameter("tituloFiltro");
+String autorFiltro = request.getParameter("autorFiltro");
    if (!conexion.isClosed()){
 
       Statement st = conexion.createStatement();
@@ -178,17 +194,17 @@ String tituloFiltro= request.getParameter("tituloFiltro");
         else {
         
       //formulario buscar por titulo
-      %>
-      
-        <form name="formbusca" action="libros.jsp" method="post" class="form-busqueda">
+      %>  
+        <form id = "formbuscar" name="formbusca" action="libros.jsp" method="post" class="form-busqueda">
             <label for="tituloFiltro">Titulo</label>
-            <input type=text name="tituloFiltro" placeholder="ingrese un titulo o parte de el"> 
-            <input type=submit name=buscar value=BUSCAR>
-        </form>
+            <input type=text id="titulo" name="tituloFiltro" placeholder="ingrese un titulo o parte de el">
+            <br><label for="autorFiltro">Autor</label>
+            <input type=text id="autor" name="autorFiltro" placeholder="ingrese el autor">  
+            <input type=submit disabled id="btn" class="btn" name=buscar value=BUSCAR>
 
       <%
       // Ponemos los resultados en un table de html
-      if(tituloFiltro==null){
+      if(tituloFiltro==null && autorFiltro==null){
                 out.println("<table border=\"1\"><tr><td>Num.</td><td>ISBN</td><td>Titulo <a href="+"libros.jsp?orden=ascendente>"+"asc"+"</a> <a href="+"libros.jsp?orden=descendente>"+"desc"+"</a>  <td>Autor</td>  <td>editorial</td>   <td>anio</td>   </td><td>Accion</td></tr>");
       int i=1;
       while (rs.next())
